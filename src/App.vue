@@ -1,13 +1,18 @@
 <template>
   <div id="app">
     <h1>Bem vindo</h1>
+    <Texts :dados="'Sou um component'"/>
   </div>
 </template>
 
 <script>
+import Texts from './component/Texts.vue'
 
 export default {
   name: 'App',
+  components: {
+    Texts
+  }
 }
 </script>
 
