@@ -16,4 +16,4 @@ yarn serve
 ```
 
 ### Estados Vue 
-Todo estado fica salvo dentro do Vue e assim voce consegue manipular a dom, por meio do javascript. 
+Todo estado fica salvo dentro do Vue, e assim é possível manipular a dom utilizando o javascript. 
