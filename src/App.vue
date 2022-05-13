@@ -1,9 +1,12 @@
 <template>
   <div id="app">
-    <h1>Bem vindo</h1>
-    <Texts :dados="'Sou um component'"/>
+    <h1>Seja bem-vindo</h1>
+    <Texts :dados="''"/>
   </div>
+
+
 </template>
+
 
 <script>
 import Texts from './component/Texts.vue'
@@ -25,4 +28,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>
