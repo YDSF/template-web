@@ -27,6 +27,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  
+}
+p.small {
+  line-height: 0.8;
 }
 
 </style>
