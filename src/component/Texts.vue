@@ -2,35 +2,37 @@
     <div id="app">
         <h1>{{ dados }}</h1>
         <form id="app" @submit.prevent="checkForm">
-            <div>
-                <label for="name">NOME COMPLETO</label>
+            <div class="nome">
+                <label for="name">NOME COMPLETO </label>
                 <input id="name" v-model="name" type="text" name="name" placeholder="Nome completo">
                 <p v-if="errornameEmpty" class="textError">Nome não pode ser vazio</p>
                 <p v-if="errornameLength" class="textError">Nome deve ter pelo menos 2 caracteres </p>
             </div>
 
-            <div>
-                <label for="email">E-MAIL</label>
+            <div class="email">
+                <label for="email">E-MAIL </label>
                 <input id="email" v-model="email" type="email" placeholder="E-mail">
                 <p v-if="erroremail" class="textError">E-mail inválido</p>
             </div>
 
-            <div>
-                <label for="ConfirmEmail">CONFIRMAR E-MAIL</label>
+            <div class="confEmail">
+                <label for="ConfirmEmail">CONFIRMAR E-MAIL </label>
                 <input id="ConfirmEmail" v-model="ConfirmEmail" type="email" placeholder="Confirmar E-mail">
                 <p v-if="errorConfirmEmail" class="textError">E-mail deve ser igual</p>
             </div>
 
-            <div>
-                <label for="cpf">CPF</label>
+            <div class="cpf">
+                <label for="cpf">CPF </label>
                 <input id="cpf" v-model="Cpf" type="text" name="cpf" placeholder="CPF" v-mask="'###.###.###-##'">
                 <p v-if="errorCpfEmpty" class="textError">CPF não pode ser vazio</p>
                 <p v-if="errorCpfLength" class="textError">CPF deve ter 11 caracteres</p>
+                <p v-if="errorCpfInvalido" class="textError">CPF inválido</p>
+
 
             </div>
 
-            <div>
-                <label for="celular">CELULAR</label>
+            <div class="celular">
+                <label for="celular">CELULAR </label>
                 <input id="celular" v-model="Celular" type="tel" name="celular" placeholder="Celular"
                     v-mask="'+55 (##) #####-####'">
                 <p v-if="errorCelularEmpty" class="textError">Celular não pode ser vazio</p>
@@ -38,8 +40,8 @@
 
             </div>
 
-            <div>
-                <label for="data">DATA DE NASCIMENTO</label>
+            <div class="data">
+                <label for="data">DATA DE NASCIMENTO </label>
                 <input id="data" v-model="data" type="date" name="data">
                 <p v-if="errordata" class="textError">Data de nascimento inválido</p>
             </div>
@@ -71,6 +73,15 @@ function TestaCPF(Cpf) {
     var i;
     Soma = 0;
     if (Cpf == "00000000000") return false;
+    if (Cpf == "11111111111") return false;
+    if (Cpf == "22222222222") return false;
+    if (Cpf == "33333333333") return false;
+    if (Cpf == "44444444444") return false;
+    if (Cpf == "55555555555") return false;
+    if (Cpf == "66666666666") return false;
+    if (Cpf == "77777777777") return false;
+    if (Cpf == "88888888888") return false;
+    if (Cpf == "99999999999") return false;
 
     for (i = 1; i <= 9; i++) Soma = Soma + parseInt(Cpf.substring(i - 1, i)) * (11 - i);
     Resto = (Soma * 10) % 11;
@@ -108,6 +119,7 @@ export default {
             errordata: false,
             errorCpfEmpty: false,
             errorCpfLength: false,
+            errorCpfInvalido: false,
             errorCelularEmpty: false,
             errorCelularLength: false,
             erroremail: false,
@@ -165,18 +177,19 @@ export default {
             if (!this.Cpf) {
                 this.errorCpfLength = false
                 this.errorCpfEmpty = true
-            } else if (this.Cpf.length == 11) {
+                this.errorCpfInvalido = false
+            } else if (this.Cpf.length < 14) {
                 this.errorCpfEmpty = false
                 this.errorCpfLength = true
+                this.errorCpfInvalido = false
+            } else if (!TestaCPF(this.Cpf.replace(/[^0-9]/g, ''))) {
+                this.errorCpfEmpty = false
+                this.errorCpfLength = false
+                this.errorCpfInvalido = true
             } else {
                 this.errorCpfEmpty = false
                 this.errorCpfLength = false
-            }
-
-            if (!TestaCPF(this.Cpf.replace(/[^0-9]/g, ''))) {
-                this.errorCpfEmpty = true
-            } else{
-                this.errorCpfLength = false
+                this.errorCpfInvalido = false
             }
 
             //Parte validar Celular//            
@@ -192,10 +205,17 @@ export default {
                 this.errorCelularLength = false
             }
 
+            
         }
     }
 
-
-
 }
 </script>
+
+<style scoped>
+</style>
+ 
+
+
+
+
